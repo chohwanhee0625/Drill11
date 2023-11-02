@@ -71,7 +71,7 @@ class Bird:
     def __init__(self):
         self.x, self.y = random.randrange(0, 1600), 500
         self.frame = 0
-        self.action = random.randrange(0, 3)
+        self.action = 2
         self.dir = 1
         if Bird.image == None:
             self.image = load_image('bird_animation.png')
