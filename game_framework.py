@@ -1,4 +1,5 @@
 # fill here
+import time
 
 def change_mode(mode):
     global stack
@@ -39,16 +40,22 @@ def quit():
 
 def run(start_mode):
     global running, stack
+    global frame_time
     running = True
     stack = [start_mode]
     start_mode.init()
 
     # fill here
     while running:
+        current_time = time.time()
         stack[-1].handle_events()
         stack[-1].update()
         stack[-1].draw()
         # fill here
+        frame_time = time.time() - current_time
+        #frame_rate = 1.0 / frame_time
+        #print(f"Frame Time:{frame_time}, Frame Rate:{frame_rate}")
+
 
     # repeatedly delete the top of the stack
     while (len(stack) > 0):

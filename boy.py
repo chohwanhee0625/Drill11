@@ -98,9 +98,15 @@ class Run:
 
     @staticmethod
     def do(boy):
+        # Boy Run Speed
+        PIXEL_PER_METER = (10.0 / 0.3)
+        RUN_SPEED_KMPH = 20.0
+        RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
+        RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
+        RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
+
         boy.frame = (boy.frame + 1) % 8
-        boy.x += boy.dir * 5
-        boy.x = clamp(25, boy.x, 1600-25)
+        boy.x += boy.dir*RUN_SPEED_PPS*game_framework.frame_time
 
 
     @staticmethod
@@ -180,7 +186,7 @@ class Boy:
         self.state_machine = StateMachine(self)
         self.state_machine.start()
         self.item = 'Ball'
-
+        self.font = load_font('ENCR10B.TTF', 16)
 
     def fire_ball(self):
 
@@ -206,3 +212,4 @@ class Boy:
 
     def draw(self):
         self.state_machine.draw()
+        self.font.draw(self.x-60, self.y+50, f'(Time: {get_time():.2f})', (255, 255, 0))
